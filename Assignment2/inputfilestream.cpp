@@ -163,49 +163,17 @@ void InputFileStream::getline(CString& instruction)
 		char* temparrr = NULL;
 		int j = 0;
 
-		fgets(this->m_c_buffer, 128, this->m_F_infile);
+		instruction.m_c_data = new char[128];
 
-		while (1)	//executes the body until end of file
+		while (!feof(this->m_F_infile))	//executes the body until end of file
 		{
-			if (feof(this->m_F_infile))
-				break;
-
-
-			if (this-> == 0)
+			fgets(this->m_c_buffer, sizeof(this->m_c_buffer), this->m_F_infile);
 			{
-				this->m_uc_InstructionMemory = new unsigned char;
-
-				this->m_uc_InstructionMemory[0] = s.m_c_data[0];
-			}
-
-			else
-			{
-				temparr = new unsigned char[this->m_i_instruction_no + 1];
-
-
-
-				for (int i = 0; i < this->m_i_instruction_no; i++)
+				for (int i = 0; i < 128; i++)
 				{
-					temparr[i] = this->m_uc_InstructionMemory[i];
+					instruction.m_c_data[i] = this->m_c_buffer[i];
 				}
-
-				temparr[this->m_i_instruction_no] = s.m_c_data[0];
-
-				delete[] this->m_uc_InstructionMemory;
-
-				this->m_uc_InstructionMemory = new unsigned char[this->m_i_instruction_no + 1];
-
-				for (int i = 0; i <= this->m_i_instruction_no; i++)
-				{
-					this->m_uc_InstructionMemory[i] = temparr[i];
-				}
-
-				delete[] temparr;
 			}
-
-			this->m_uc_InstructionMemory[this->m_i_instruction_no] = s.m_c_data[0];
-
-			this->m_i_instruction_no++;
 
 
 		}

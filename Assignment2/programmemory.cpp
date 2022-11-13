@@ -23,7 +23,7 @@ ProgramMemory:: ProgramMemory(const char* file)	//parameterised
 
 	InputFileStream infile;
 
-	infile.open(file, "rb");
+	infile.open(file, "r+");
 
 	while (1)	//executes the body until end of file
 	{
@@ -66,12 +66,30 @@ ProgramMemory:: ProgramMemory(const char* file)	//parameterised
 			delete[] temparr;
 		}
 
-		this->m_uc_InstructionMemory[this->m_i_instruction_no] = s.m_c_data[0];
-
 		this->m_i_instruction_no++;
 
 
 	}
+
+	temparr = new unsigned char[this->m_i_instruction_no + 1];
+
+	temparr[this->m_i_instruction_no] = '\0';
+
+	for (int i = 0; i < this->m_i_instruction_no; i++)
+	{
+		temparr[i] = this->m_uc_InstructionMemory[i];
+	}
+
+	delete[] this->m_uc_InstructionMemory;
+
+	this->m_uc_InstructionMemory = new unsigned char[this->m_i_instruction_no + 1];
+
+	for (int i = 0; i <= this->m_i_instruction_no; i++)
+	{
+		this->m_uc_InstructionMemory[i] = temparr[i];
+	}
+
+	delete[] temparr;
 
 	infile.close();
 }

@@ -3,10 +3,10 @@
 #include <string>
 
 //constructors
-CString::CString() : m_c_data(NULL), m_i_length(0)	//default
+CString::CString() : m_c_data(NULL), m_i_length(0)
 { }
 
-CString::CString(const char* data)	//parameterised
+CString::CString(const char* data)
 {
 	this->m_i_length = strlen(data) + 1;
 
@@ -34,7 +34,7 @@ CString::~CString()
 
 
 //operator overloaders
-CString& CString:: operator + (const CString& s)	//string concatenation
+CString& CString:: operator + (const CString& s)
 {
 	CString temp;
 
@@ -57,7 +57,7 @@ CString& CString:: operator + (const CString& s)	//string concatenation
 	return *this;
 }
 
-CString& CString:: operator = (const CString& s)	//string equal
+CString& CString:: operator = (const CString& s)
 {
 	delete[] this->m_c_data;
 
@@ -70,7 +70,7 @@ CString& CString:: operator = (const CString& s)	//string equal
 	return *this;
 }
 
-ostream& operator << (ostream& output, const CString& s)	//string output display
+ostream& operator << (ostream& output, const CString& s)
 {
 
 	for (int i = 0; i < s.m_i_length; i++)
@@ -86,7 +86,7 @@ ostream& operator << (ostream& output, const CString& s)	//string output display
 	return output;
 }
 
-istream& operator >> (istream& input, CString& s)	//string storage (without spaces)
+istream& operator >> (istream& input, CString& s)
 {
 	input >> s.m_c_data;
 
@@ -94,7 +94,7 @@ istream& operator >> (istream& input, CString& s)	//string storage (without spac
 
 }
 
-CString& CString:: operator += (const CString& s)	//string concatenation to itslef
+CString& CString:: operator += (const CString& s)
 {
 	CString temp;
 
@@ -117,37 +117,7 @@ CString& CString:: operator += (const CString& s)	//string concatenation to itsl
 	return *this;
 }
 
-CString& CString:: operator += (const char* data)	//string concatenation to itslef parameterised
-{
-	CString s;
-
-	s.m_i_length = strlen(data) + 1;
-	s.m_c_data = new char[s.m_i_length];
-
-	strcpy(s.m_c_data, data);
-
-	CString temp;
-
-	temp.m_i_length = this->m_i_length;
-
-	temp.m_c_data = new char[temp.m_i_length];
-
-	strcpy(temp.m_c_data, this->m_c_data);
-
-	delete[] this->m_c_data;
-
-	this->m_i_length = this->m_i_length + s.m_i_length - 1;
-
-	this->m_c_data = new char[this->m_i_length];
-
-	strcpy(this->m_c_data, temp.m_c_data);
-
-	strcat(m_c_data, s.m_c_data);
-
-	return *this;
-}
-
-CString& CString:: operator + (const char* data)	//string concatenation parameterised
+CString& CString:: operator += (const char* data)
 {
 	CString s;
 
@@ -177,7 +147,37 @@ CString& CString:: operator + (const char* data)	//string concatenation paramete
 	return *this;
 }
 
-char& CString:: operator [] (int index)	//returns character at index
+CString& CString:: operator + (const char* data)
+{
+	CString s;
+
+	s.m_i_length = strlen(data) + 1;
+	s.m_c_data = new char[s.m_i_length];
+
+	strcpy(s.m_c_data, data);
+
+	CString temp;
+
+	temp.m_i_length = this->m_i_length;
+
+	temp.m_c_data = new char[temp.m_i_length];
+
+	strcpy(temp.m_c_data, this->m_c_data);
+
+	delete[] this->m_c_data;
+
+	this->m_i_length = this->m_i_length + s.m_i_length - 1;
+
+	this->m_c_data = new char[this->m_i_length];
+
+	strcpy(this->m_c_data, temp.m_c_data);
+
+	strcat(m_c_data, s.m_c_data);
+
+	return *this;
+}
+
+char CString:: operator [] (int index)
 {
 	if (index >= this->m_i_length || index < 0)
 	{
@@ -191,7 +191,7 @@ char& CString:: operator [] (int index)	//returns character at index
 
 }
 
-bool CString::operator == (const CString& s)	//equality check for two strings
+bool CString::operator == (const CString& s)
 {
 	if (this->m_i_length == s.m_i_length)
 	{
@@ -213,7 +213,7 @@ bool CString::operator == (const CString& s)	//equality check for two strings
 	}
 }
 
-bool CString::operator == (const char* data)	//equality check for two strings parameterised
+bool CString::operator == (const char* data)
 {
 	CString s(data);
 
@@ -239,12 +239,12 @@ bool CString::operator == (const char* data)	//equality check for two strings pa
 
 
 //functions
-char* CString::get()	//character get
+char* CString::get()
 {
 	return this->m_c_data;
 }
 
-int CString::find(const char* keyword)	//finding a substring within a string and returning the index of starting character
+int CString::find(const char* keyword)
 {
 	CString s(keyword);
 
@@ -261,7 +261,7 @@ int CString::find(const char* keyword)	//finding a substring within a string and
 	}
 }
 
-void CString::removespace()	//removes spaces from string
+void CString::removespace()
 {
 	CString temp;
 
@@ -301,7 +301,7 @@ void CString::removespace()	//removes spaces from string
 
 }
 
-CString CString:: leftstring(const char data)	//returns string to left of char at which to break string
+CString CString:: leftstring(const char data)
 {
 	CString temp;
 	int count = 0;
@@ -325,7 +325,7 @@ CString CString:: leftstring(const char data)	//returns string to left of char a
 	return temp;
 }
 
-CString CString::rightstring(const char data)	//returns string to right of char at which to break string
+CString CString::rightstring(const char data)
 {
 	CString temp;
 
@@ -350,13 +350,13 @@ CString CString::rightstring(const char data)	//returns string to right of char 
 	return temp;
 }
 
-CString CString::substring(int index, int length)	//returns substring with starting char at index and total length specified by user
+CString CString::substring(int index, int length)
 {
 	CString temp;
 
 	
 	while (length > m_i_length)
-		length = m_i_length - index + 1;
+		length = m_i_length - index;
 
 	temp.m_i_length = length;
 	temp.m_c_data = new char[temp.m_i_length];
@@ -369,21 +369,24 @@ CString CString::substring(int index, int length)	//returns substring with start
 	return temp;
 }
 
-void CString::set(char* data)	//setter for string
+void CString::set(char* data)
 {
 	this->m_c_data = data;
 }
 
-int CString::cstoi()	//conversion from string to int
+int CString::cstoi()
 {
+	// Initialize a variable 
 	int num = 0;
 	int n = this->getlength();
 
-	for (int i = 0; i < n - 2; i++)	//hardcoded for only single digit conversion, otherwise obsolete
-	{
+	// Iterate till length of the string 
+	for (int i = 0; i < n - 2; i++)
+
+		// Subtract 48 from the current digit 
 		num = num * 10 + (int(this->m_c_data[i]) - 48);
-	}
-	
+
+	// Print the answer 
 	return num;
 }
 
