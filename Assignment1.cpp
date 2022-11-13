@@ -296,7 +296,7 @@ int main()
 
 	for (int i = 0; i < instrno; i++)
 	{
-		instrFetch(programcounter, &instrMem[0], instructionReg);	//stores current instruction in machinecode variable
+		instrFetch(programcounter, &instrMem[i], instructionReg);	//stores current instruction in machinecode variable
 		struct ControlStruct myControlStruct = InstructionDecoder(instructionReg, RA, RB, R0);	//decodes the instruction
 		ALU_output = InstructionExecutor(RA, RB, myControlStruct);	//executes the operation
 		WriteBack(RA, RB, R0, myControlStruct, ALU_output);	//updates the value of the register
